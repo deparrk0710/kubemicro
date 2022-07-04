@@ -12,7 +12,7 @@ pipeline {
 	stages {
 	
 	  stage('Build Angular Image') {
-        when { changeset "client/*"}
+           when { changeset "client/*"}
 	     steps {
 		   
 		     script {
