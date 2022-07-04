@@ -36,6 +36,7 @@ pipeline {
 	   }
 
        stage('Kubernetes Deploy Angular') {
+          agent {label 'KOPS'}
            when { changeset "client/*"}
             steps {
                   withCredentials([file(credentialsId: 'CartWheelKubeConfig1', variable: 'config')]){
@@ -73,6 +74,7 @@ pipeline {
 	   }
 
        stage('Kubernetes books Deploy') {
+          agent {label 'KOPS'}
            when { changeset "javaapi/*"}
             steps {
                   withCredentials([file(credentialsId: 'CartWheelKubeConfig1', variable: 'config')]){
@@ -111,6 +113,7 @@ pipeline {
 	   }
 
        stage('Kubernetes Main Deploy') {
+          agent {label 'KOPS'}
            when { changeset "nodeapi/*"}
             steps {
                   withCredentials([file(credentialsId: 'CartWheelKubeConfig1', variable: 'config')]){
