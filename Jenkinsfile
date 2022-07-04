@@ -2,11 +2,11 @@ pipeline {
     agent any
 	
 	environment {
-        clientRegistry = "repository.k8sengineers.com/apexrepo/client"
-        booksRegistry = "repository.k8sengineers.com/apexrepo/books"
-        mainRegistry = "repository.k8sengineers.com/apexrepo/main"
-        registryCredential = 'NexusRepoLogin'
-        cartRegistry = "https://repository.k8sengineers.com"
+        clientRegistry = "deparrk/client"
+        booksRegistry = "deparrk/javaapi"
+        mainRegistry = "deparrk/nodeapi"
+        registryCredential = 'dockerhub'
+        
     }
 	
 	stages {
@@ -27,7 +27,7 @@ pipeline {
           when { changeset "client/*"}
           steps{
             script {
-              docker.withRegistry( cartRegistry, registryCredential ) {
+              docker.withRegistry( clientRegistry, registryCredential ) {
                 dockerImage.push("$BUILD_NUMBER")
                 dockerImage.push('latest')
               }
@@ -64,7 +64,7 @@ pipeline {
           when { changeset "javaapi/*"}
           steps{
             script {
-              docker.withRegistry( cartRegistry, registryCredential ) {
+              docker.withRegistry( booksRegistry, registryCredential ) {
                 dockerImage.push("$BUILD_NUMBER")
                 dockerImage.push('latest')
               }
@@ -102,7 +102,7 @@ pipeline {
           when { changeset "nodeapi/*"}
           steps{
             script {
-              docker.withRegistry( cartRegistry, registryCredential ) {
+              docker.withRegistry( mainRegistry, registryCredential ) {
                 dockerImage.push("$BUILD_NUMBER")
                 dockerImage.push('latest')
               }
